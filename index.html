@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>comp_guesses_random</title>
+	<script type="text/javascript">
+		window.onload = function () { getElementById('lower').focus(); }
+		
+		function getRandomIntInclusive(min, max) {
+		  min = Math.ceil(min);
+		  max = Math.floor(max);
+		  return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+		}
+
+		function myFunction(el){
+		  el.remove();
+          var l = document.getElementById('lower').value;
+          var h = document.getElementById('higher').value;
+          var num = getRandomIntInclusive(l,h);
+          let counter=0;
+          var ele = document.createElement('div');
+          document.body.appendChild(ele);
+          var ele1 = document.createElement('div');
+          ele1.innerHTML = "<br><br>I have number in the range "+l+" to "+h+" you have to guess that.";
+          ele1.id='feedback';
+          ele.appendChild(ele1);
+          var ele2 = document.createElement('label');
+          ele2.for = 'guess';
+          ele2.innerHTML='Enter your guess: ';
+          ele.appendChild(ele2);
+          var ele3 = document.createElement('input');
+          ele3.id='guess';
+          ele.appendChild(ele3);
+          var ele4= document.createElement('button');
+          ele4.innerHTML='Submit';
+          ele4.onclick = function(){
+          	counter++;
+          	let x = parseInt(ele3.value);
+
+          	if(x===num){
+              ele2.remove();
+              ele3.remove();
+              ele4.remove();
+              ele1.innerHTML = '<br><br>Your guess(i.e.,'+x+') is correct<br>you took '+counter+' trials to guess that';
+
+          	}
+          	else if(x>num){
+              ele1.innerHTML = '<br><br>Your guess(i.e.,'+x+') is higher';ele3.focus();
+          	}
+          	else if(x<num){
+              ele1.innerHTML = '<br><br>Your guess(i.e.,'+x+') is lower';ele3.focus();
+          	}
+          	ele3.value='';
+          	
+          }
+          ele.appendChild(ele4);
+          ele3.focus();
+		}
+	</script>
+</head>
+<body>
+<div id="range">
+<label for="lower">Enter Lower Limit:</label><br>
+<input id="lower" type="text" name="" autofocus>
+<br>
+<label for="higher">Enter Higher Limit:</label><br>
+<input id="higher" type="text" name="">
+<br> 
+</div>
+<button onclick="myFunction(this)">Play</button>
+
+</body>
+</html>
